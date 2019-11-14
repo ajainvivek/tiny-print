@@ -1,0 +1,70 @@
+{
+  "name": "tiny-print",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "source": "src/index.js",
+  "scripts": {
+    "build": "microbundle build --i src/{index}.js --o dist/index.js",
+    "dev": "microbundle watch",
+    "lint": "eslint src/**",
+    "lint:fix": "eslint src/** --fix",
+    "precommit": "lint-staged",
+    "pretest": "npm run lint",
+    "prepublishOnly": "npm run build",
+    "gh-pages": "cd demo && npm run build && ./../node_modules/.bin/gh-pages -d dist",
+    "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+    "test": "npm run clear:cache && ENABLE_METRICS=false jest src",
+    "test:integration": "npm run clear:cache && ENABLE_METRICS=false jest test/integration",
+    "test:single": "npm run clear:cache && ENABLE_METRICS=false jest --coverage --watchAll --testPathPattern=\"$npm_config_pattern\" --collectCoverageFrom src/**/*$npm_config_pattern*/*.{js} -u",
+    "clear:cache": "jest --clearCache",
+    "coverage": "jest --collectCoverageFrom=src/**.js --coverage src"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md,yaml,yml}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "print html",
+    "print javascript",
+    "print plugin"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "author": "Ajain Vivek",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^5.14.1",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.2.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.1.0",
+    "mock-fs": "^4.10.1",
+    "prettier": "^1.16.4",
+    "husky": "0.14.3",
+    "lint-staged": "7.3.0",
+    "gh-pages": "^2.0.0",
+    "microbundle": "^0.11.0"
+  },
+  "dependencies": {}
+}
