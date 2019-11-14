@@ -3,7 +3,7 @@
 <img alt="TinyPrint" title="TinyPrint" src="https://image.flaticon.com/icons/svg/1497/1497542.svg" height="200">
 </a>
 </p>
-<p align="center">Tiny print is a tiny javascript library to help printing HTML element.</p>
+<p align="center">Tiny print is a tiny javascript library to help printing targeted HTML element.</p>
 
 ## Installation
 
@@ -18,7 +18,7 @@ npm install tiny-print --save
 ```js
 import tinyPrint from "tiny-print";
 
-tinyPrint({
+tinyPrint(element, {
   scanStyles: BOOLEAN, // Default: true, scans computed styles for dom
   importStyles: BOOLEAN, // Default: false, imports styles from html page
   cssStyle: STRING, // Default: '', custom css styles
