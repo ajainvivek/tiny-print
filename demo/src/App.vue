@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="invoice-box">
+    <div id="print" class="invoice-box">
       <table cellpadding="0" cellspacing="0">
         <tr class="top">
           <td colspan="4">
@@ -60,7 +60,8 @@
 
         <tr>
           <td colspan="4">
-            <button class="btn-add-row" @click="addRow">Add row</button>
+            <button class="btn-add-row" @click="addRow">Add Row</button>
+            <button class="btn-add-row" @click="handlePrint">Print Invoice</button>
           </td>
         </tr>
 
@@ -74,6 +75,8 @@
 </template>
 
 <script>
+
+import tinyPrint from 'tiny-print';
 
 export default {
   name: 'app',
@@ -98,6 +101,15 @@ export default {
   methods: {
     addRow() {
       this.items.push({ description: "", quantity: 1, price: 0 });
+    },
+    handlePrint() {
+      const invoiceEl = this.$el.querySelector('#print')
+      tinyPrint(invoiceEl, {
+        scanStyles: true,
+        importStyles: false,
+        hidePageRule: true,
+        cssStyle: ''
+      })
     }
   },
   filters: {
