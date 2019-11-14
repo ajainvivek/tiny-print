@@ -107,7 +107,7 @@ export default {
       tinyPrint(invoiceEl, {
         scanStyles: true,
         importStyles: false,
-        hidePageRule: true,
+        hidePageRule: false,
         cssStyle: ''
       })
     }

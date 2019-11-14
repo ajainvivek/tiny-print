@@ -27,19 +27,18 @@ const getComputedStyles = (element, computed) => {
  * @param {*} element = element to be printed
  * @param {*} options = configurable print options
  */
-const tinyPrint = (
-    element,
-    {
-        scanStyles = true,
-        importStyles = false,
-        cssStyle = '',
-        hidePageRule = true,
-    }
-) => {
+const tinyPrint = (element, options) => {
     if (!element.nodeName) {
         console.warn('Invalid DOM element passed!');
         return;
     }
+    const {
+        scanStyles = true,
+        importStyles = [],
+        scanHTML = false,
+        cssStyle = '',
+        hidePageRule = true,
+    } = options;
     const iframe = document.createElement('iframe');
     let printElement = element.cloneNode(true);
     let printContainer = document.querySelector('.tiny-print-container');
@@ -49,6 +48,7 @@ const tinyPrint = (
         // create the print container
         printContainer = document.createElement('div');
         printContainer.classList.add('tiny-print-container');
+        printContainer.style.cssText = 'width: 100%; height: 100%;';
         printContainer.style.display = 'none';
         document.body.appendChild(printContainer);
     }
@@ -71,24 +71,41 @@ const tinyPrint = (
     iframe.contentWindow.document.write(printHTML);
 
     const iframeHead = iframe.contentWindow.document.querySelector('head');
-    // if import styles is enabled then append styles to the head
-    if (importStyles) {
+    // scan html then import all available styles then append styles to the head
+    if (scanHTML) {
         const styles = document.querySelectorAll('style');
+        const links = document.querySelectorAll('link[type="text/css"]');
         // inject styles to iframe head
         styles.forEach(style => {
             const node = style.cloneNode(true);
             iframeHead.appendChild(node);
         });
+        // inject linked css
+        links.forEach(link => {
+            const node = link.cloneNode(true);
+            iframeHead.appendChild(node);
+        });
     }
 
-    // if custom css style
+    // import external stylesheet links
+    if (importStyles.length > 0) {
+        importStyles.forEach(url => {
+            const link = document.createComment('link');
+            link.setAttribute('type', 'text/css');
+            link.setAttribute('rel', 'stylesheet');
+            link.setAttribute('href', url);
+            iframeHead.appendChild(link);
+        });
+    }
+
+    // custom css style
     if (cssStyle) {
         const customStyleNode = document.createElement('style');
         customStyleNode.innerHTML = cssStyle;
         iframeHead.appendChild(customStyleNode);
     }
 
-    // if hide page rule
+    // hide page rule
     if (hidePageRule) {
         const pageRuleStyleNode = document.createElement('style');
         pageRuleStyleNode.innerHTML = '@page { size: auto;  margin: 0mm; }';
