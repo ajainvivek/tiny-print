@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://ajainvivek.github.io/tiny-print/" target="_blank">
-<img alt="TinyPrint" title="TinyPrint" src="https://image.flaticon.com/icons/svg/1497/1497542.svg" height="200">
+<img alt="TinyPrint" title="TinyPrint" src="https://image.flaticon.com/icons/svg/1497/1497542.svg" height="100">
 </a>
 </p>
 <p align="center">Tiny print is a tiny javascript library (less than 1kb) to help printing targeted HTML element.</p>
