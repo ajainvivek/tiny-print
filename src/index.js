@@ -90,7 +90,7 @@ const tinyPrint = (element, options) => {
     // import external stylesheet links
     if (importStyles.length > 0) {
         importStyles.forEach(url => {
-            const link = document.createComment('link');
+            const link = document.createElement('link');
             link.setAttribute('type', 'text/css');
             link.setAttribute('rel', 'stylesheet');
             link.setAttribute('href', url);

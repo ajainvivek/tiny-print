@@ -29,21 +29,43 @@ tinyPrint(element, {
                 </div>
                </div>
               <div class="example">
-                <el-button type="primary" class="button">Hide Page Rule</el-button>
+                <el-button type="primary" class="button" @click="() => {
+                  handlePrint({
+                    hidePageRule: true
+                  });
+                }">Hide Page Rule</el-button>
                 <div class="code-block">
                   <pre v-highlightjs="sourcecode">
                     <code class="javascript">
 import tinyPrint from "tiny-print";
 
 tinyPrint(element, {
-  scanStyles: true,
   hidePageRule: true
 });
                     </code>
                   </pre>
                 </div>
                </div>
-              <el-button type="primary" class="button">Add External Stylesheet</el-button>
+              <div class="example">
+                <el-button type="primary" class="button" @click="() => {
+                  handlePrint({
+                    hidePageRule: true,
+                    importStyles: ['https://unpkg.com/purecss@1.0.1/build/pure-min.css']
+                  });
+                }">Import External Styles</el-button>
+                <div class="code-block">
+                  <pre v-highlightjs="sourcecode">
+                    <code class="javascript">
+import tinyPrint from "tiny-print";
+
+tinyPrint(element, {
+  hidePageRule: true,
+  importStyles: ['https://unpkg.com/purecss@1.0.1/build/pure-min.css']
+});
+                    </code>
+                  </pre>
+                </div>
+               </div>
             </div>  
           </div>
              
