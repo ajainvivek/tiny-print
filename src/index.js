@@ -37,7 +37,7 @@ const tinyPrint = (element, options) => {
         importStyles = [],
         scanHTML = false,
         cssStyle = '',
-        hidePageRule = true,
+        hidePageRule = false,
     } = options;
     const iframe = document.createElement('iframe');
     let printElement = element.cloneNode(true);
