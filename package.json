@@ -1,6 +1,6 @@
 {
   "name": "tiny-print",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A tiny javascript print library (less than 1kb) to help printing targeted HTML element.",
   "main": "dist/index.js",
   "source": "src/index.js",

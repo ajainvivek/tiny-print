@@ -2,9 +2,11 @@
   <el-container id="app">
     <el-container>
       <el-header class="header">
+        <h3>Tiny Print: ~= 1kb</h3>
         <div class="menu">
-          <span>Tiny Print</span>
-          <el-button>Github</el-button>
+          <a href="https://github.com/ajainvivek/tiny-print" target="_blank">
+            <el-button>Github</el-button>
+          </a>
         </div>  
       </el-header>
       
@@ -15,14 +17,36 @@
               <div class="example">
                 <el-button type="primary" class="button" @click="() => {
                   handlePrint({});
-                }">Scanned Styles</el-button>
+                }">Scan Computed Styles</el-button>
                 <div class="code-block">
                   <pre v-highlightjs="sourcecode">
                     <code class="javascript">
+// Recommended: only for static styles
 import tinyPrint from "tiny-print";
 
 tinyPrint(element, {
   scanStyles: true
+});
+                    </code>
+                  </pre>
+                </div>
+               </div>
+               <div class="example">
+                <el-button type="primary" class="button" @click="() => {
+                  handlePrint({
+                    scanStyles: false,
+                    scanHTML: true
+                  });
+                }">Scan HTML Styles</el-button>
+                <div class="code-block">
+                  <pre v-highlightjs="sourcecode">
+                    <code class="javascript">
+// Scan HTML and import styles
+import tinyPrint from "tiny-print";
+
+tinyPrint(element, {
+  scanStyles: false,
+  scanHTML: true
 });
                     </code>
                   </pre>
@@ -37,6 +61,7 @@ tinyPrint(element, {
                 <div class="code-block">
                   <pre v-highlightjs="sourcecode">
                     <code class="javascript">
+// Hide print page rule like title etc
 import tinyPrint from "tiny-print";
 
 tinyPrint(element, {
@@ -49,7 +74,8 @@ tinyPrint(element, {
               <div class="example">
                 <el-button type="primary" class="button" @click="() => {
                   handlePrint({
-                    hidePageRule: true,
+                    scanStyles: false,
+                    scanHTML: false,
                     importStyles: ['https://unpkg.com/purecss@1.0.1/build/pure-min.css']
                   });
                 }">Import External Styles</el-button>
@@ -59,8 +85,39 @@ tinyPrint(element, {
 import tinyPrint from "tiny-print";
 
 tinyPrint(element, {
-  hidePageRule: true,
+  scanStyles: false,
+  scanHTML: false,
   importStyles: ['https://unpkg.com/purecss@1.0.1/build/pure-min.css']
+});
+                    </code>
+                  </pre>
+                </div>
+               </div>
+               <div class="example">
+                <el-button type="primary" class="button" @click="() => {
+                  handlePrint({
+                    scanStyles: false,
+                    scanHTML: true,
+                    cssStyle: `
+                      .invoice-box table tr.item td {
+                        border-bottom: 1px solid blue !important;
+                      }
+                    `
+                  });
+                }">Custom CSS Styles</el-button>
+                <div class="code-block">
+                  <pre v-highlightjs="sourcecode">
+                    <code class="javascript">
+import tinyPrint from "tiny-print";
+
+tinyPrint(element, {
+  scanStyles: false,
+  scanHTML: true,
+  cssStyle: `
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid blue !important;
+    }
+  `
 });
                     </code>
                   </pre>
@@ -106,6 +163,10 @@ html, body, #app {
 .header {
   background: #eee;
   height: 60px;
+}
+
+.header h3 {
+  display: inline-block;
 }
 
 .menu {

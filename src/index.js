@@ -74,7 +74,7 @@ const tinyPrint = (element, options) => {
     // scan html then import all available styles then append styles to the head
     if (scanHTML) {
         const styles = document.querySelectorAll('style');
-        const links = document.querySelectorAll('link[type="text/css"]');
+        const links = document.querySelectorAll('link[href$=".css"]');
         // inject styles to iframe head
         styles.forEach(style => {
             const node = style.cloneNode(true);

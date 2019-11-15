@@ -29,7 +29,7 @@ tinyPrint(element, {
 
 ## Demo
 
-Please refer the [DEMO](https://printme.netlify.com/#/).
+Please refer the [DEMO](https://tiny-print.netlify.com).
 
 ## Contributing
 
